@@ -1,0 +1,18 @@
+- hosts: localhost
+  sudo: true
+  gather_facts: no
+  tasks:
+  - name: create stack
+    ignore_errors: True
+    register: stack_create
+    os_stack:
+     auth:
+       auth_url: http://XXXXXXX:5000/v3.0
+       username: USER
+       password: XXXXX
+       project_name: XXXXXX
+     name: comcast_stack
+     state: present
+     template: ".../techops.yml"
+     environment:
+     - ../techops.env 

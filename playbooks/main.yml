@@ -1,0 +1,7 @@
+---
+- Name: Usecase For Comcast
+  hosts: <floatingIP>
+  sudo: true
+  gather_facts: no
+  roles:
+    - { role: ../roles/tasks }

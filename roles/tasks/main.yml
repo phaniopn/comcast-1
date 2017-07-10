@@ -1,0 +1,16 @@
+---
+- name: Add Group
+  include: add_group.yml
+  tags: add_group
+
+- name: Install NTP
+  include: ntp.yml
+  tags: Install_ntp
+
+- name: Add IP Tables
+  include: ntp.yml
+  tags: iptables_checks
+
+- name: Add IP Tables
+  include: ldap.yml
+  tags: install_ldap

@@ -1,0 +1,45 @@
+heat_template_version: 2015-04-30
+description: Heat to deploy VM
+  
+parameters:
+  image:
+    type: string
+    label: Image name or ID
+    description: Image to be used for compute instance
+    default: 231121c7-a261-4735-9db6-4227m3082m5
+
+  flavor:
+    type: string
+    label: Flavor
+    description: Type of instance (flavor) to be used 
+    default: m1.small
+
+  private_network:
+    type: string
+    label: Private network name or ID
+    description: Network to attach instance to.
+    default: 7nh121c7-x2r1-4t35-9db6-30z6xn50s92
+  public_network:
+    type: string
+    label: Private network name or ID
+    description: Network to attach instance to.
+    default: 9h5j3k7f-e9ec-4735-9db6-7676f0527e86	
+
+resources:
+  vm1:
+    type: OS::Nova::Server
+    properties:
+      image: { get_param: image }
+      flavor: { get_param: flavor }
+      networks:
+        - network: { get_param: private_network }
+      config_drive: True
+      user_data:
+        get_file: cloudinit.txt
+      user_data_format: RAW
+	  
+server1_floating_ip:
+    type: OS::Neutron::FloatingIP
+    properties:
+      floating_network: { get_param: public_net }
+      port_id: { get_param: private_network }
